@@ -10,6 +10,7 @@ class UsersBloc extends Bloc<UsersEvent, UsersState> {
   UsersBloc() : super(UsersInitState()) {
     on<LoadUsersEvent>(onLoadUsersEvent);
     on<AddUserEvent>(onAddUserEvent);
+    on<DeleteUsersEvent>(onDeleteUsersEvent);
   }
 
   Future<void> onLoadUsersEvent(
@@ -25,5 +26,12 @@ class UsersBloc extends Bloc<UsersEvent, UsersState> {
     final db = await provideDb();
     final usersDs = UsersDatasource(db);
     usersDs.saveUser(event.user);
+  }
+
+  Future<void> onDeleteUsersEvent(
+      DeleteUsersEvent event, Emitter<UsersState> emit) async {
+    final db = await provideDb();
+    final usersDs = UsersDatasource(db);
+    usersDs.cleanAllUsers();
   }
 }

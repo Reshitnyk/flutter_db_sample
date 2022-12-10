@@ -4,6 +4,8 @@ abstract class UsersEvent {}
 
 class LoadUsersEvent extends UsersEvent {}
 
+class DeleteUsersEvent extends UsersEvent {}
+
 class AddUserEvent extends UsersEvent {
   final User user;
 
