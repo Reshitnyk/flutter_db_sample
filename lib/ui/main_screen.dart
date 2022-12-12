@@ -6,6 +6,7 @@ import 'package:test_db/bloc/events.dart';
 import 'package:test_db/bloc/states.dart';
 import 'package:test_db/datasource/ds_users.dart';
 import 'package:test_db/model/user.dart';
+import 'package:test_db/ui/list_user.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
@@ -16,7 +17,7 @@ class MainScreen extends StatefulWidget {
 
 class _MainScreenState extends State<MainScreen> {
   TextEditingController userName = TextEditingController();
-  TextEditingController userAge = TextEditingController();
+  TextEditingController userAge = TextEditingController(text: '0');
 
   @override
   Widget build(BuildContext context) {
@@ -28,16 +29,16 @@ class _MainScreenState extends State<MainScreen> {
           print(state.users);
         }
       },
-      child: Center(
-        child: Column(
+      child: Scaffold(
+        body: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            TextField(
+            TextFormField(
               controller: userName,
               decoration: InputDecoration(hintText: "User name"),
             ),
             SizedBox(height: 10),
-            TextField(
+            TextFormField(
               controller: userAge,
               keyboardType: TextInputType.number,
               decoration: InputDecoration(hintText: "User age"),
@@ -52,7 +53,7 @@ class _MainScreenState extends State<MainScreen> {
               onPressed: _printUsers,
               child: const Text('Print users'),
             ),
-            Text('data }')
+            UserList()
           ],
         ),
       ),
@@ -69,22 +70,8 @@ class _MainScreenState extends State<MainScreen> {
         ),
       ),
     );
-    // bloc.add(
-    //   AddUserEvent(
-    //     User(
-    //       name: 'Ben',
-    //       age: 33,
-    //     ),
-    //   ),
-    // );
-    // bloc.add(
-    //   AddUserEvent(
-    //     User(
-    //       name: 'Carl',
-    //       age: 44,
-    //     ),
-    //   ),
-    // );
+    userName.clear();
+    userAge.clear();
   }
 
   void _printUsers() {
